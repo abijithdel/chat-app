@@ -13,7 +13,11 @@
                 <div class="info">
                     <p>{{this.email}}</p>
                     <p id="toid" style="display: none;">{{this._id}}</p>
-                    <span class="offline">Status</span>
+                    {{#if this.status}}
+                    <span class="online">Online</span>
+                    {{else}}
+                    <span class="offline">Offline</span>
+                    {{/if}}
                 </div>
             </div>
             {{/each}}
@@ -27,6 +31,7 @@
                 {{!-- message Box--}}
             </div>
             <form class="input-box" id="form">
+                <input type="text" value="{{fromuser._id}}" style="display: none;" id="statusid">
                 <input type="text" placeholder="Message" class="none" id="input">
                 <button class="none">Send</button>
             </form>

@@ -1,5 +1,7 @@
-const socket = io();
+const StatusId = document.getElementById('statusid'); 
+const updateid = StatusId.value; 
 
+const socket = io()
 const form = document.getElementById("form");
 const input = document.getElementById("input");
 const chatbox = document.getElementById("chat-box");
@@ -18,7 +20,6 @@ $(document).ready(function () {
       type: "GET",
       data: { userId: toid }, 
       success: function (response) {
-        console.log("User data retrieved successfully:", response);
         username.innerHTML = response
       },
       error: function (error) {
@@ -31,6 +32,9 @@ $(document).ready(function () {
     chatbox.innerHTML = "";
   });
 
+  socket.emit('login', updateid)
+
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (input.value) {
@@ -40,6 +44,7 @@ $(document).ready(function () {
   });
 
   socket.on("PMChat", function (msg, email) {
+    console.log(msg)
     const item = document.createElement("p");
     item.textContent = `${email}: ${msg}`;
     chatbox.appendChild(item);

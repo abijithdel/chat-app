@@ -57,6 +57,7 @@ h3{
     border-start-start-radius: 10px;
     border-end-start-radius: 10px;
     overflow: auto;
+    padding: 5px;
 }
 
 .chat-cotainer .root .user-div .head{
@@ -76,8 +77,9 @@ h3{
     background-color: rgb(17, 17, 27);
     margin-top: 10px;
     display: flex;
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .chat-cotainer .root .user-div .users img{
@@ -98,6 +100,10 @@ h3{
 
 .chat-cotainer .root .user-div .users .offline{
     color: red;
+}
+
+.chat-cotainer .root .user-div .users .online{
+    color: green;
 }
 
 .chat-cotainer .root .user-div .head a{

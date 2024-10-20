@@ -10,14 +10,13 @@ function islogin(req, res, nest) {
   }
 }
 
+
 router.get("/", islogin, async (req, res) => {
-  var err;
   const email = req.session.user.email;
   const username = email.slice(0, 5);
   try {
     var users = await UserModel.find();
   } catch (error) {
-    err = "DB ERROR";
     console.log(error);
   }
   res.render("index", { username, user: users, fromuser: req.session.user });

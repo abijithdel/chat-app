@@ -5,7 +5,7 @@ const path = require("path");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-const UserModel = require('./config/schema/user')
+const UserModel = require("./config/schema/user");
 
 const app = express();
 const server = http.createServer(app);
@@ -22,21 +22,38 @@ const io = new Server(server);
 
 io.on("connection", (socket) => {
   console.log("a user connected");
+  let status_id = [];
 
-  socket.on('JoinRoom', (FromUid, ToUid)=>{
-    const RoomID = [FromUid, ToUid].sort().join('-')
-    socket.join(RoomID)
-  })
+  socket.on("login", async (id) => {
+    status_id.push(id);
+    try {
+      const User = await UserModel.findByIdAndUpdate(id, { status: true });
+      console.log(`${User.email} Online`);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
-  socket.on('PMessage',async (msg, FromUid, ToUid)=>{
-    const RoomID = [FromUid, ToUid].sort().join('-')
-    const User = await UserModel.findById(FromUid)
-    const email = User.email.slice(0,8)
-    io.to(RoomID).emit('PMChat',msg,email)
-  })
+  socket.on("JoinRoom", (FromUid, ToUid) => {
+    const RoomID = [FromUid, ToUid].sort().join("-");
+    socket.join(RoomID);
+    console.log(`User joined room: ${RoomID}`);
+  });
 
-  socket.on("disconnect", () => {
+  socket.on("PMessage", async (msg, FromUid, ToUid) => {
+    const RoomID = [FromUid, ToUid].sort().join("-");
+    const User = await UserModel.findById(FromUid);
+    const email = User.email.slice(0, 8);
+    io.to(RoomID).emit("PMChat", msg, email);
+  });
+
+  socket.on("disconnect", async () => {
     console.log("user disconnected");
+    const id = status_id[0];
+    try {
+      const User = await UserModel.findByIdAndUpdate(id, { status: false });
+      console.log(`${User.email} Offline`);
+    } catch (error) {}
   });
 });
 
