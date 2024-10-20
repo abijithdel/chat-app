@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const UserModel = require('../config/schema/user')
+const UserModel = require("../config/schema/user");
 
 function islogin(req, res, nest) {
   if (req.session.login) {
@@ -10,17 +10,29 @@ function islogin(req, res, nest) {
   }
 }
 
-router.get("/", islogin,async (req, res) => {
-    var err
+router.get("/", islogin, async (req, res) => {
+  var err;
   const email = req.session.user.email;
   const username = email.slice(0, 5);
   try {
-    var users = await UserModel.find()
+    var users = await UserModel.find();
   } catch (error) {
-    err = 'DB ERROR'
-    console.log(error)
+    err = "DB ERROR";
+    console.log(error);
   }
-  res.render("index",{username,user: users});
+  res.render("index", { username, user: users, fromuser: req.session.user });
 });
+
+router.get('/user', async (req, res) => {
+  const userId = req.query.userId;  
+  try {
+    const user = await UserModel.findById(userId)
+    const Username = user.email
+    res.json(Username)
+  } catch (error) {
+    
+  }
+});
+
 
 module.exports = router;

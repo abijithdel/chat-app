@@ -12,22 +12,28 @@
                 <img src="/img/user-icon.png" alt="user@email.in">
                 <div class="info">
                     <p>{{this.email}}</p>
-                    <span class="offline">STatus</span>
+                    <p id="toid" style="display: none;">{{this._id}}</p>
+                    <span class="offline">Status</span>
                 </div>
             </div>
             {{/each}}
         </div>
         <div class="chat-div">
-            <div class="user-name"><h1>UserName</h1></div>
-            <div class="chat-box" id="chat-box">
-                <p>Helo</p>
+            <div class="user-name">
+                <h1 class="none" id="chat-username">UserName</h1>
+                <p id="fromid" style="display: none;">{{fromuser._id}}</p>
             </div>
-            <form class="input-box">
-                <input type="text" placeholder="Message">
-                <button>Send</button>
+            <div class="chat-box none" id="chat-box">
+                {{!-- message Box--}}
+            </div>
+            <form class="input-box" id="form">
+                <input type="text" placeholder="Message" class="none" id="input">
+                <button class="none">Send</button>
             </form>
         </div>
     </div>
 </section>
 
 <script src="/js/chat.js"></script>
+
+

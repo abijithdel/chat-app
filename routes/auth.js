@@ -65,7 +65,6 @@ router.post('/login',async(req,res)=>{
             res.status(404).render('login',{error: 'User not found. Create a Account'})
         }else{
             const compare = await bcrypt.compare(password, user.password)
-            console.log(compare)
             if(!compare){
                 res.status(401).render('login',{error: "incorrect password"})
             }else{
