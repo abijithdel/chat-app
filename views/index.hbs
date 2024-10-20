@@ -2,10 +2,26 @@
 
 <section class="chat-cotainer">
     <div class="root">
-        <div class="user-div"></div>
+        <div class="user-div">
+            <div class="head">
+                <h3>{{username}}.</h3>
+                <a href="/auth/logout">Log Out</a>
+            </div>
+            {{#each user}}
+            <div class="users">
+                <img src="/img/user-icon.png" alt="user@email.in">
+                <div class="info">
+                    <p>{{this.email}}</p>
+                    <span class="offline">STatus</span>
+                </div>
+            </div>
+            {{/each}}
+        </div>
         <div class="chat-div">
             <div class="user-name"><h1>UserName</h1></div>
-            <div class="chat-box" id="chat-box"></div>
+            <div class="chat-box" id="chat-box">
+                <p>Helo</p>
+            </div>
             <form class="input-box">
                 <input type="text" placeholder="Message">
                 <button>Send</button>
@@ -13,3 +29,5 @@
         </div>
     </div>
 </section>
+
+<script src="/js/chat.js"></script>

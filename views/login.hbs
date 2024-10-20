@@ -1,0 +1,23 @@
+<title>Login</title>
+
+<section class="login-container">
+    <div class="root">
+        <div class="title"><h1>Log in</h1></div>
+        {{#if error}}
+        <div class="error-status"><p>{{error}}</p></div>
+        {{/if}}
+        <form action="/auth/login" method="post">
+            <label for="email">Email</label>
+            <br>
+            <input type="email" placeholder="Email" name="email">
+            <br>
+            <label for="password">Password</label>
+            <br>
+            <input type="password" name="password" placeholder="Password">
+            <br>
+            <div class="aouth-redirect"><a  href="/auth/signup">Create account</a></div>
+            <br>
+            <button>Login</button>
+        </form>
+    </div>
+</section>

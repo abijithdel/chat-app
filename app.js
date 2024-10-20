@@ -1,8 +1,8 @@
 const express = require("express");
-const axios = require("socket.io");
+const { Server } = require("socket.io");
 const http = require("node:http");
 const path = require("path");
-const { create } = require("express-handlebars");
+const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 
@@ -17,11 +17,26 @@ require("./config/mongoos");
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
 
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public"));
 
-const hbs = create({ extname: ".hbs" });
-app.engine("hbs", hbs.engine);
+app.engine('hbs', exphbs.engine({
+  extname: 'hbs',
+  defaultLayout: 'main',
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true
+  }
+}));
 app.set("view engine", "hbs");
 app.set("views", "./views");
 
