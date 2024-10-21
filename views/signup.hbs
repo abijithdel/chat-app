@@ -6,7 +6,7 @@
         {{#if error}}
         <p class="error-status">{{error}}</p>
         {{/if}}
-        <form action="/auth/signup" method="post">
+        <form action="/auth/signup" method="post" enctype="multipart/form-data">
             <label for="email">Email</label>
             <input type="email" name="email" placeholder="Email">
             <br>
@@ -16,6 +16,8 @@
             <label for="cpassword">Confirm  Password</label>
             <input type="password" name="cpassword" placeholder="Confirm Password">
             <br>
+            <label for="img">Image</label>
+            <input type="file" name="img">
             <div class="aouth-redirect"><a  href="/auth/login">i have a account</a></div>
             <div>
                 <button>Sign UP</button>

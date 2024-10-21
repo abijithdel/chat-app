@@ -2,6 +2,20 @@ const express = require("express");
 const router = express.Router();
 const UserModel = require("../config/schema/user");
 const bcrypt = require("bcrypt");
+const multer  = require('multer')
+
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/profile/');  
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + '.jpg');  
+  }
+});
+const upload = multer({ storage: storage });
 
 
 function islogin(req,res,nest){
@@ -18,10 +32,10 @@ router.get("/signup",islogin, (req, res) => {
   res.render("signup");
 });
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", upload.single('img'), async (req, res) => {
   try {
     const { email, password, cpassword } = req.body;
-
+    const file = req.file.filename
     if (password != cpassword) {
       res.status(401).render("signup", { error: "password not match" });
     } else {
@@ -36,6 +50,7 @@ router.post("/signup", async (req, res) => {
           const NewUser = new UserModel({
             email: email,
             password: hash,
+            img: file
           });
 
           req.session.user = NewUser;

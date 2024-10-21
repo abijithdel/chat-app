@@ -13,7 +13,7 @@ function islogin(req, res, nest) {
 
 router.get("/", islogin, async (req, res) => {
   const email = req.session.user.email;
-  const username = email.slice(0, 5);
+  const username = email.slice(0, 8);
   try {
     var users = await UserModel.find();
   } catch (error) {
