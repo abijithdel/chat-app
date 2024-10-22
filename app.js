@@ -77,4 +77,8 @@ app.set("views", "./views");
 app.use("/auth", authRouter);
 app.use("/", userRouter);
 
+app.all('*',(req,res)=>{
+  res.status(404).render('404')
+})
+
 server.listen(PORT, () => console.log(`Server Running on Port ${PORT}`));
