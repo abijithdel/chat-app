@@ -6,6 +6,7 @@ const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const UserModel = require("./config/schema/user");
+const ChatModel = require("./config/schema/message");
 
 const app = express();
 const server = http.createServer(app);
@@ -41,10 +42,21 @@ io.on("connection", (socket) => {
   });
 
   socket.on("PMessage", async (msg, FromUid, ToUid) => {
-    const RoomID = [FromUid, ToUid].sort().join("-");
-    const User = await UserModel.findById(FromUid);
-    const email = User.email.slice(0, 8);
-    io.to(RoomID).emit("PMChat", msg, email);
+    try {
+      const RoomID = [FromUid, ToUid].sort().join("-");
+      const User = await UserModel.findById(FromUid);
+      const email = User.email.split("@")[0];
+      const newChat = new ChatModel({
+        from: FromUid,
+        fromUname: email,
+        to: ToUid,
+        message: msg,
+      });
+      await newChat.save();
+      io.to(RoomID).emit("PMChat", msg, email);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   socket.on("disconnect", async () => {
@@ -77,8 +89,8 @@ app.set("views", "./views");
 app.use("/auth", authRouter);
 app.use("/", userRouter);
 
-app.all('*',(req,res)=>{
-  res.status(404).render('404')
-})
+app.all("*", (req, res) => {
+  res.status(404).render("404");
+});
 
 server.listen(PORT, () => console.log(`Server Running on Port ${PORT}`));

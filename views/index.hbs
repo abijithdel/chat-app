@@ -7,6 +7,12 @@
                 <h3>{{username}}.</h3>
                 <a href="/auth/logout">Log Out</a>
             </div>
+            <div class="search">
+                <form action="/search" method="post">
+                    <input type="text" name="search" placeholder="Search..! User">
+                    <button>Search</button>
+                </form>
+            </div>
             {{#each user}}
             <div class="users">
                 <img src="/profile/{{this.img}}" alt="user@email.in">
@@ -30,11 +36,14 @@
             <div class="chat-box none" id="chat-box">
                 {{!-- message Box--}}
             </div>
-            <form class="input-box" id="form">
+            <form class="input-box none" id="form">
                 <input type="text" value="{{fromuser._id}}" style="display: none;" id="statusid">
                 <input type="text" placeholder="Message" class="none" id="input">
                 <button class="none">Send</button>
             </form>
+            <div class="none-mes">
+                <span class="chat-now">Chat Now</span>
+            </div>
         </div>
     </div>
 </section>

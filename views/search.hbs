@@ -1,0 +1,24 @@
+<title>search</title>
+<section class="search-page">
+    <div class="root">
+        {{#each Users}}
+        <div class="users">
+            <img src="/profile/{{this.img}}" alt="{{this.email}}">
+            <p id="uid" style="display: none;">{{this._id}}</p>
+            <div class="info">
+                <h2>{{this.email}}</h2>
+                {{#if this.status}}
+                <h3 style="color: green;">Online</h3>
+                {{else}}
+                <h3 style="color: red;">Offline</h3>
+                {{/if}}
+            </div>
+        </div>
+        {{/each}}
+        {{#if errorMessage}}
+        <p>{{errorMessage}}</p>
+        {{/if}}
+    </div>
+</section>
+
+<script src="/js/search.js"></script>
