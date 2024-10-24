@@ -24,10 +24,10 @@ router.get("/", islogin, async (req, res) => {
       const contact = await UserModel.findById(contact_id[x].id)
       contactUsers.push(contact)
     }
+    res.render("index", { username, user: contactUsers, fromuser: req.session.user });
   } catch (error) {
     console.log(error);
   }
-  res.render("index", { username, user: contactUsers, fromuser: req.session.user });
 });
 
 router.get("/user", async (req, res) => {
