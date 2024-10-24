@@ -34,7 +34,7 @@ router.get("/user", async (req, res) => {
   const userId = req.query.userId;
   try {
     const user = await UserModel.findById(userId);
-    const Username = user.email;
+    const Username = user.email.split("@")[0];
     res.json(Username);
   } catch (error) {}
 });

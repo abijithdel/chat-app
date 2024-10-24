@@ -17,6 +17,11 @@ $(document).ready(function () {
     toid = $(this).find("#toid").text();
     fromid = $("#fromid").text();
 
+    if (window.innerWidth <= 1050){
+      $('.user-div').hide()
+      $('.chat-div').show()
+    }
+
     $.ajax({
       url: `/user`,
       type: "GET",
