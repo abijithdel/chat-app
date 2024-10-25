@@ -12,14 +12,14 @@ var toid;
 $(document).ready(function () {
   $(".users").click(function () {
     $(".none").show();
-    $('.none-mes').hide()
-    $('.chat-now').hide()
+    $(".none-mes").hide();
+    $(".chat-now").hide();
     toid = $(this).find("#toid").text();
     fromid = $("#fromid").text();
 
-    if (window.innerWidth <= 1050){
-      $('.user-div').hide()
-      $('.chat-div').show()
+    if (window.innerWidth <= 1050) {
+      $(".user-div").hide();
+      $(".chat-div").show();
     }
 
     $.ajax({
@@ -39,14 +39,24 @@ $(document).ready(function () {
       type: "GET",
       success: function (response) {
         if (response.success) {
-          const chatHistory = response.chatHistory;
-          console.log(chatHistory)
-          chatbox.innerHTML = ""; 
+          
+          chatbox.innerHTML = "";
 
-          for (var x in chatHistory) {
-            const text = document.createElement("p");
-            text.innerText = `${chatHistory[x].fromUname}: ${chatHistory[x].message}`; 
-            chatbox.appendChild(text); 
+          if (response.room) {
+            const roomChat = response.RoomHistory;
+
+            for (var x in roomChat) {
+              const chat = document.createElement("p");
+              chat.innerHTML = `${roomChat[x].username}: ${roomChat[x].message}`;
+              chatbox.appendChild(chat);
+            }
+          } else {
+            const chatHistory = response.chatHistory;
+            for (var x in chatHistory) {
+              const text = document.createElement("p");
+              text.innerText = `${chatHistory[x].fromUname}: ${chatHistory[x].message}`;
+              chatbox.appendChild(text);
+            }
           }
         }
       },
@@ -76,5 +86,21 @@ $(document).ready(function () {
     item.textContent = `${email}: ${msg}`;
     chatbox.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  $(".dmenu").click(function () {
+    if ($(".dropdown-menu").css("display") === "none") {
+      $(".dropdown-menu").show();
+    } else if ($(".dropdown-menu").css("display") === "block") {
+      $(".dropdown-menu").hide();
+    }
+  });
+
+  $("#create-room").click(function () {
+    $(".group-popup").show();
+  });
+
+  $("#close-popup").click(function () {
+    $(".group-popup").hide();
   });
 });

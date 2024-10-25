@@ -1,8 +1,8 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-body{
+body {
     background-color: black;
     color: white;
     font-family: Arial, Helvetica, sans-serif;
@@ -12,7 +12,7 @@ body{
 
 /* 404 */
 
-.error-404{
+.error-404 {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -20,27 +20,27 @@ body{
     width: 100%;
 }
 
-.error-404 h1{
+.error-404 h1 {
     font-size: 50px;
 }
 
-h1{
+h1 {
     margin: 0;
 }
 
-h3{
+h3 {
     margin: 0;
 }
 
 /* aouth-redirect */
 
-.aouth-redirect a{
+.aouth-redirect a {
     color: white;
 }
 
 /* error-status */
 
-.error-status{
+.error-status {
     background-color: red;
     color: white;
     padding: 10px;
@@ -51,7 +51,7 @@ h3{
 
 /* chat-cotainer */
 
-.chat-cotainer{
+.chat-cotainer {
     display: flex;
     height: 100vh;
     width: 100%;
@@ -59,12 +59,12 @@ h3{
     justify-content: center;
 }
 
-.chat-cotainer .root{
+.chat-cotainer .root {
     display: flex;
     width: 80%;
 }
 
-.chat-cotainer .root .user-div{
+.chat-cotainer .root .user-div {
     background-color: rgb(15, 20, 34);
     height: 80vh;
     width: 30%;
@@ -74,7 +74,7 @@ h3{
     padding: 5px;
 }
 
-.chat-cotainer .root .user-div .head{
+.chat-cotainer .root .user-div .head {
     width: 100%;
     height: 60px;
     background-color: rgb(15, 20, 34);
@@ -85,14 +85,109 @@ h3{
     border-bottom: 1px solid white;
 }
 
-.chat-cotainer .root .user-div .search{
+
+.chat-cotainer .root .user-div .head i {
+    cursor: pointer;
+}
+
+.chat-cotainer .root .user-div .head .dropdown-menu {
+    display: none; /* Hide the menu by default */
+    position: absolute; /* Use absolute to position it properly */
+    top: 120px; /* Adjust based on your layout */
+    background-color: rgb(20, 26, 44);
+    box-shadow: 0px 8px 16px rgba(37, 37, 37, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 1;
+
+}
+
+.chat-cotainer .root .user-div .group-popup{
+    display: none;
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    background-color: rgb(12, 16, 27); 
+    padding: 30px; 
+    box-shadow: 0px 4px 12px rgba(48, 45, 45, 0.1); 
+    border-radius: 8px; 
+    z-index: 100;
+    text-align: center;
+}
+
+.chat-cotainer .root .user-div .group-popup h3{
+    margin-bottom: 10px;
+}
+
+.chat-cotainer .root .user-div .group-popup form input[type=text]{
+    height: 35px;
+    width: 400px;
+    border-radius: 6px;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+
+.chat-cotainer .root .user-div .group-popup form input[type=file]{
+    height: 35px;
+    width: 400px;
+    border-radius: 6px;
+    padding-left: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.chat-cotainer .root .user-div .group-popup i{
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    background-color: red;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.chat-cotainer .root .user-div .group-popup form  button{
+    height: 35px;
+    width: 100px;
+    cursor: pointer;
+    background-color: transparent;
+    color: aqua;
+    border: 1px solid aqua;
+    border-radius: 6px;
+}
+
+.chat-cotainer .root .user-div .group-popup form  button:hover{
+    background-color: aqua;
+    color: black;
+    border: 1px solid black;
+}
+
+.chat-cotainer .root .user-div .head .dropdown-menu .menu{
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-cotainer .root .user-div .head .dropdown-menu .menu p,
+.chat-cotainer .root .user-div .head .dropdown-menu .menu a {
+    background-color: transparent;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.chat-cotainer .root .user-div .head .dropdown-menu .menu p:hover,
+.chat-cotainer .root .user-div .head .dropdown-menu .menu a:hover{
+    background-color: rgb(29, 37, 59);
+}
+
+.chat-cotainer .root .user-div .search {
     padding: 10px;
     width: 100%;
     height: auto;
     display: flex;
 }
 
-.chat-cotainer .root .user-div .search input{
+.chat-cotainer .root .user-div .search input {
     width: 70%;
     height: 35px;
     border: 1px solid black;
@@ -101,7 +196,7 @@ h3{
     padding-left: 10px;
 }
 
-.chat-cotainer .root .user-div .search button{
+.chat-cotainer .root .user-div .search button {
     width: 25%;
     height: 35px;
     background-color: transparent;
@@ -111,7 +206,7 @@ h3{
     cursor: pointer;
 }
 
-.chat-cotainer .root .user-div .users{
+.chat-cotainer .root .user-div .users {
     height: auto;
     width: 100%;
     background-color: rgb(21, 29, 41);
@@ -122,31 +217,31 @@ h3{
     border-radius: 10px;
 }
 
-.chat-cotainer .root .user-div .users img{
+.chat-cotainer .root .user-div .users img {
     height: 60px;
     width: 60px;
     border-radius: 50%;
 }
 
-.chat-cotainer .root .user-div .users:hover{
+.chat-cotainer .root .user-div .users:hover {
     background-color: rgb(15, 15, 34);
 }
 
-.chat-cotainer .root .user-div .users .info{
+.chat-cotainer .root .user-div .users .info {
     margin-left: 20px;
 }
 
 
 
-.chat-cotainer .root .user-div .users .offline{
+.chat-cotainer .root .user-div .users .offline {
     color: red;
 }
 
-.chat-cotainer .root .user-div .users .online{
+.chat-cotainer .root .user-div .users .online {
     color: green;
 }
 
-.chat-cotainer .root .user-div .head a{
+.chat-cotainer .root .user-div .head a {
     color: white;
     text-decoration: none;
     background-color: red;
@@ -154,28 +249,28 @@ h3{
     border-radius: 6px;
 }
 
-.chat-cotainer .root .chat-div{
+.chat-cotainer .root .chat-div {
     background-color: rgb(21, 29, 41);
     height: 80vh;
     width: 70%;
     border-end-end-radius: 10px;
     border-start-end-radius: 10px;
     display: flex;
-    flex-direction: column;  
+    flex-direction: column;
 }
 
-.chat-cotainer .root .chat-div .none{
+.chat-cotainer .root .chat-div .none {
     display: none;
 }
 
-.chat-cotainer .root .chat-div .user-name{
+.chat-cotainer .root .chat-div .user-name {
     height: 10%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.chat-cotainer .root .chat-div .user-name img{
+.chat-cotainer .root .chat-div .user-name img {
     display: none;
     margin-right: 20px;
     height: 30px;
@@ -183,30 +278,30 @@ h3{
     cursor: pointer;
 }
 
-.chat-cotainer .root .chat-div .user-name img:hover{
+.chat-cotainer .root .chat-div .user-name img:hover {
     background-color: rgb(31, 42, 58);
     border-radius: 10px;
 }
 
-.chat-cotainer .root .chat-div .chat-box{
+.chat-cotainer .root .chat-div .chat-box {
     height: 80%;
     background-color: rgb(21, 29, 41);
     padding: 10px;
     overflow: auto;
 }
 
-.chat-cotainer .root .chat-div .chat-box p{
+.chat-cotainer .root .chat-div .chat-box p {
     color: white;
 }
 
-.chat-cotainer .root .chat-div .input-box{
+.chat-cotainer .root .chat-div .input-box {
     height: 10%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.chat-cotainer .root .chat-div .input-box input{
+.chat-cotainer .root .chat-div .input-box input {
     width: 75%;
     height: 70%;
     border: 1px solid black;
@@ -214,7 +309,7 @@ h3{
     border-radius: 6px;
 }
 
-.chat-cotainer .root .chat-div .input-box button{
+.chat-cotainer .root .chat-div .input-box button {
     width: 20%;
     height: 70%;
     background-color: transparent;
@@ -223,7 +318,7 @@ h3{
     border-radius: 6px;
 }
 
-.chat-cotainer .root .chat-div .none-mes{
+.chat-cotainer .root .chat-div .none-mes {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -231,44 +326,45 @@ h3{
     width: 100%;
 }
 
-.chat-cotainer .root .chat-div .input-box button:hover{
+.chat-cotainer .root .chat-div .input-box button:hover {
     background-color: aqua;
     border: 1px solid black;
     color: black;
 }
 
-@media only screen and (max-width: 1050px){
+@media only screen and (max-width: 1050px) {
 
-    .chat-cotainer .root{
+    .chat-cotainer .root {
         width: 100%;
         height: 100vh;
     }
 
-    .chat-cotainer .root .user-div{
+    .chat-cotainer .root .user-div {
         width: 100%;
         height: 100%;
         border-radius: 0;
     }
 
-    .chat-cotainer .root .chat-div{
+    .chat-cotainer .root .chat-div {
         width: 100%;
         height: 100%;
         display: none;
         border-radius: 0;
-        
+
     }
 
-    .chat-cotainer .root .chat-div .none-mes{
+    .chat-cotainer .root .chat-div .none-mes {
         display: none;
     }
 
-    .chat-cotainer .root .chat-div .user-name img{
+    .chat-cotainer .root .chat-div .user-name img {
         display: block;
     }
 }
+
 /* signup page */
 
-.signup{
+.signup {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -288,16 +384,16 @@ h3{
     flex-direction: column;
 }
 
-.signup .root form{
+.signup .root form {
     width: 100%;
 }
 
-.signup .root h1{
+.signup .root h1 {
     margin-bottom: 20px;
 }
 
 
-.signup .root form input{
+.signup .root form input {
     width: 100%;
     height: 40px;
     margin-bottom: 20px;
@@ -305,7 +401,7 @@ h3{
     border: 1px solid black;
 }
 
-.signup .root form button{
+.signup .root form button {
     height: 30px;
     width: 100px;
     background-color: aqua;
@@ -319,7 +415,7 @@ h3{
 
 /* login-container */
 
-.login-container{
+.login-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -327,7 +423,7 @@ h3{
     width: 100%;
 }
 
-.login-container .root{
+.login-container .root {
     background-color: rgb(20, 18, 48);
     height: auto;
     width: auto;
@@ -335,11 +431,11 @@ h3{
     border-radius: 10px;
 }
 
-.login-container .root .title{
+.login-container .root .title {
     text-align: center;
 }
 
-.login-container .root form input{
+.login-container .root form input {
     width: 300px;
     height: 40px;
     margin-bottom: 20px;
@@ -348,7 +444,7 @@ h3{
     border-radius: 6px;
 }
 
-.login-container .root form button{
+.login-container .root form button {
     background-color: aqua;
     border: 1px solid black;
     border-radius: 6px;
@@ -367,7 +463,7 @@ h3{
     padding-top: 20px;
 }
 
-.search-page .root .users{
+.search-page .root .users {
     display: flex;
     background-color: rgb(22, 22, 54);
     padding: 10px;
@@ -376,29 +472,29 @@ h3{
     margin-top: 10px;
 }
 
-.search-page .root{
+.search-page .root {
     overflow: auto;
 }
 
-.search-page .root .users img{
+.search-page .root .users img {
     height: 100px;
     width: 100px;
     border-radius: 50%;
     border: 2px solid white;
 }
 
-.search-page .root .users .info{
+.search-page .root .users .info {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-left: 20px;
 }
 
-.search-page .root .users .info h3{
+.search-page .root .users .info h3 {
     margin: 0;
 }
 
-.search-page .root .users .info h2{
+.search-page .root .users .info h2 {
     margin: 0;
     margin-top: 10px;
 }

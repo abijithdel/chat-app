@@ -1,14 +1,20 @@
 <title>search</title>
 <section class="search-page">
     <div class="root">
-        {{#each Users}}
+        {{#each outdata}}
         <div class="users">
             <img src="/profile/{{this.img}}" alt="{{this.email}}">
             <p id="uid" style="display: none;">{{this._id}}</p>
             <div class="info">
+                {{#if this.email}}
                 <h2>{{this.email}}</h2>
+                {{else}}
+                <h2>{{this.name}}</h2>
+                {{/if}}
                 {{#if this.status}}
                 <h3 style="color: green;">Online</h3>
+                {{else if this.type}}
+                <h3 style="color: aqua;">{{this.type}}</h3>
                 {{else}}
                 <h3 style="color: red;">Offline</h3>
                 {{/if}}

@@ -5,8 +5,32 @@
         <div class="user-div">
             <div class="head">
                 <h3>{{username}}</h3>
-                <a href="/auth/logout">Log Out</a>
+                {{!-- <a href="/auth/logout">Log Out</a> --}}
+                <i class="bi bi-three-dots-vertical dmenu"></i>
+
+                <div class="dropdown-menu">
+                    <div class="menu">
+                        <a href="">Account</a>
+                        <p id="create-room">Create Room</p>
+                        <a style="color: red;" href="/auth/logout">logout</a>
+                    </div>
+                </div>
             </div>
+
+            {{!-- group Popup --}}
+
+            <div class="group-popup">
+                <i class="bi bi-x-lg" id="close-popup"></i>
+                <h3>Create Group</h3>
+                <form action="/create-room" method="post"  enctype="multipart/form-data">
+                    <input type="text" name="room_name" placeholder="Room Name" required>
+                    <br>
+                    <input type="file" name="room_img" required>
+                    <br>
+                    <button>Create</button>
+                </form>
+            </div>
+
             <div class="search">
                 <form action="/search" method="post">
                     <input type="text" name="search" placeholder="Search..! User">
@@ -17,13 +41,20 @@
             <div class="users">
                 <img src="/profile/{{this.img}}" alt="user@email.in">
                 <div class="info">
+                    {{#if this.email}}
                     <p>{{this.email}}</p>
+                    {{else}}
+                    <p>{{this.name}}</p>
+                    {{/if}}
                     <p id="toid" style="display: none;">{{this._id}}</p>
                     {{#if this.status}}
                     <span class="online">Online</span>
+                    {{else if this.type}}
+                    <span style="color: rgb(12, 241, 241);">{{this.type}}</span>
                     {{else}}
                     <span class="offline">Offline</span>
                     {{/if}}
+
                 </div>
             </div>
             {{/each}}
@@ -50,5 +81,3 @@
 </section>
 
 <script src="/js/chat.js"></script>
-
-

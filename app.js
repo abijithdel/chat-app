@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const UserModel = require("./config/schema/user");
 const ChatModel = require("./config/schema/message");
+const RoomModel = require("./config/schema/group");
 
 const app = express();
 const server = http.createServer(app);
@@ -18,6 +19,7 @@ require("./config/mongoos");
 
 const userRouter = require("./routes/user");
 const authRouter = require("./routes/auth");
+const user = require("./config/schema/user");
 
 const io = new Server(server);
 
@@ -35,24 +37,52 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("JoinRoom", (FromUid, ToUid) => {
-    const RoomID = [FromUid, ToUid].sort().join("-");
-    socket.join(RoomID);
-    console.log(`User joined room: ${RoomID}`);
+  socket.on("JoinRoom", async (FromUid, ToUid) => {
+    let RoomID;
+    let isRoom;
+    try {
+      const room = await RoomModel.findOne({ _id: ToUid });
+      if (room) {
+        RoomID = room.name;
+        isRoom = true;
+      } else {
+        isRoom = false;
+        RoomID = [FromUid, ToUid].sort().join("-");
+      }
+      socket.join(RoomID);
+      console.log(`User joined room: ${RoomID}`);
+    } catch (error) {
+      console.log(error);
+    }
   });
 
   socket.on("PMessage", async (msg, FromUid, ToUid) => {
+    let RoomID;
     try {
-      const RoomID = [FromUid, ToUid].sort().join("-");
+      const room = await RoomModel.findOne({ _id: ToUid });
+
       const User = await UserModel.findById(FromUid);
       const email = User.email.split("@")[0];
-      const newChat = new ChatModel({
-        from: FromUid,
-        fromUname: email,
-        to: ToUid,
-        message: msg,
-      });
-      await newChat.save();
+
+      if (room) {
+        RoomID = room.name;
+        room.message.push({
+          username: email,
+          user_id: FromUid,
+          message: msg
+        })
+        await room.save()
+      } else {
+        RoomID = [FromUid, ToUid].sort().join("-");
+        const newChat = new ChatModel({
+          from: FromUid,
+          fromUname: email,
+          to: ToUid,
+          message: msg,
+        });
+        await newChat.save();
+      }
+
       io.to(RoomID).emit("PMChat", msg, email);
     } catch (error) {
       console.log(error);
